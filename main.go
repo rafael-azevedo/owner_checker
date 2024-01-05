@@ -54,7 +54,7 @@ func main() {
 
 		aliasesContent := ""
 		aliasesContent, err = gc.getFileContent(org, repo, ownersAlias)
-		if err != nil && strings.Contains(err.Error(), "404") {
+		if err != nil && !strings.Contains(err.Error(), "404") {
 			fmt.Printf("Error Reading alias file for %s \n Err :: %s\n", repo, err.Error())
 		}
 		aliases := map[string]bool{}
