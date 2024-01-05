@@ -69,9 +69,7 @@ func main() {
 		// remove any aliases from the ownerUsers map
 		// then add any users from the alias list not already in the owners map
 		ownerUsers = removeMapFromMap(aliases, ownerUsers)
-		fmt.Println("Aliases removed from Owners", ownerUsers)
 		maps.Copy(ownerUsers, aliasUsers)
-		fmt.Println("Aliases and owners combined", ownerUsers)
 		invalidUsers := usersNotInOrg(orgUsers, ownerUsers)
 
 		if len(invalidUsers) > 0 {
