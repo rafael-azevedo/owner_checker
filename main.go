@@ -69,7 +69,9 @@ func main() {
 		// remove any aliases from the ownerUsers map
 		// then add any users from the alias list not already in the owners map
 		ownerUsers = removeMapFromMap(aliases, ownerUsers)
+		fmt.Println("Aliases removed from Owners", ownerUsers)
 		maps.Copy(ownerUsers, aliasUsers)
+		fmt.Println("Aliases and owners combined", ownerUsers)
 		invalidUsers := usersNotInOrg(orgUsers, ownerUsers)
 
 		if len(invalidUsers) > 0 {
@@ -110,14 +112,13 @@ func parseAliases(content string) map[string]bool {
 			if strings.Contains(line, "#") {
 				line = strings.Split(line, "#")[0]
 			}
+			alias := strings.TrimSpace(strings.TrimSuffix(line, ":"))
+			if alias != "" {
+				aliases[alias] = true
+			}
 		}
-		alias := strings.TrimSpace(strings.TrimSuffix(line, ":"))
-		if alias != "" {
-			aliases[alias] = true
-		}
-
 	}
-	return map[string]bool{}
+	return aliases
 }
 
 func parseUsers(content string) map[string]bool {
